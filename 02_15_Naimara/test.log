@@ -1,0 +1,81 @@
+
+> ai-studio-angular-app@0.0.0 test
+> ng test --watch=false
+
+[33m❯[39m Building...
+[32m✔[39m Building...
+[1mInitial chunk files[22m     [2m | [22m[1mNames[22m                [2m | [22m [1mRaw size[22m
+[32mstyles.css[39m              [2m | [22m[2mstyles[22m               [2m | [22m [36m34.87 kB[39m[2m | [22m
+[32mspec-app-asset-editor.js[39m[2m | [22m[2mspec-app-asset-editor[22m[2m | [22m [36m23.27 kB[39m[2m | [22m
+[32mspec-app-app.js[39m         [2m | [22m[2mspec-app-app[22m         [2m | [22m [36m15.02 kB[39m[2m | [22m
+[32mchunk-CGZBV6BD.js[39m       [2m | [22m[2m-[22m                    [2m | [22m  [36m4.07 kB[39m[2m | [22m
+[32minit-testbed.js[39m         [2m | [22m[2minit-testbed[22m         [2m | [22m  [36m1.21 kB[39m[2m | [22m
+[32mvitest-mock-patch.js[39m    [2m | [22m[2mvitest-mock-patch[22m    [2m | [22m[36m704 bytes[39m[2m | [22m
+
+[1m [22m                       [2m | [22m[1mInitial total[22m        [2m | [22m [1m79.15 kB[22m
+
+Application bundle generation complete. [1.904 seconds] - 2026-03-22T22:56:33.614Z
+
+
+[1m[46m RUN [49m[22m [36mv4.1.0 [39m[90mC:/Users/USUARIO/Desktop/Master_Antigravity/02_15_Naimara[39m
+
+ [32m✓[39m [30m[43m app [49m[39m src/app/app.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 81[2mms[22m[39m
+Not implemented: Window's alert() method
+[90mstdout[2m | src/app/asset-editor.spec.ts[2m > [22m[2mAssetEditor[2m > [22m[2msaveChanges should be callable without throwing
+[22m[39mCambios guardados: {
+  name: [32m'Video Naimara (Local)'[39m,
+  url: [32m'file:///C:/Users/USUARIO/Desktop/VIDEOS_NAIMARA/WIN_20260322_10_47_52_Pro.mp4'[39m
+}
+
+[90mstderr[2m | src/app/asset-editor.spec.ts
+[22m[39mError generating barcode NoElementException: No element to render on.
+    at new NoElementException [90m(C:\Users\USUARIO\Desktop\Master_Antigravity\02_15_Naimara\[39mnode_modules\[4mjsbarcode[24m\bin\exceptions\exceptions.js:55:125[90m)[39m
+    at API.render [90m(C:\Users\USUARIO\Desktop\Master_Antigravity\02_15_Naimara\[39mnode_modules\[4mjsbarcode[24m\bin\JsBarcode.js:198:9[90m)[39m
+    at JsBarcode [90m(C:\Users\USUARIO\Desktop\Master_Antigravity\02_15_Naimara\[39mnode_modules\[4mjsbarcode[24m\bin\JsBarcode.js:76:55[90m)[39m
+    at Timeout._onTimeout (C:/Users/USUARIO/Desktop/Master_Antigravity/02_15_Naimara/src/app/asset-editor.ts:174:11)
+[90m    at listOnTimeout (node:internal/timers:608:17)[39m
+[90m    at processTimers (node:internal/timers:543:7)[39m
+
+[90mstderr[2m | src/app/asset-editor.spec.ts
+[22m[39mError generating barcode NoElementException: No element to render on.
+    at new NoElementException [90m(C:\Users\USUARIO\Desktop\Master_Antigravity\02_15_Naimara\[39mnode_modules\[4mjsbarcode[24m\bin\exceptions\exceptions.js:55:125[90m)[39m
+    at API.render [90m(C:\Users\USUARIO\Desktop\Master_Antigravity\02_15_Naimara\[39mnode_modules\[4mjsbarcode[24m\bin\JsBarcode.js:198:9[90m)[39m
+    at JsBarcode [90m(C:\Users\USUARIO\Desktop\Master_Antigravity\02_15_Naimara\[39mnode_modules\[4mjsbarcode[24m\bin\JsBarcode.js:76:55[90m)[39m
+    at Timeout._onTimeout (C:/Users/USUARIO/Desktop/Master_Antigravity/02_15_Naimara/src/app/asset-editor.ts:174:11)
+[90m    at listOnTimeout (node:internal/timers:608:17)[39m
+[90m    at processTimers (node:internal/timers:543:7)[39m
+
+[90mstderr[2m | src/app/asset-editor.spec.ts
+[22m[39mError generating barcode NoElementException: No element to render on.
+    at new NoElementException [90m(C:\Users\USUARIO\Desktop\Master_Antigravity\02_15_Naimara\[39mnode_modules\[4mjsbarcode[24m\bin\exceptions\exceptions.js:55:125[90m)[39m
+    at API.render [90m(C:\Users\USUARIO\Desktop\Master_Antigravity\02_15_Naimara\[39mnode_modules\[4mjsbarcode[24m\bin\JsBarcode.js:198:9[90m)[39m
+    at JsBarcode [90m(C:\Users\USUARIO\Desktop\Master_Antigravity\02_15_Naimara\[39mnode_modules\[4mjsbarcode[24m\bin\JsBarcode.js:76:55[90m)[39m
+    at Timeout._onTimeout (C:/Users/USUARIO/Desktop/Master_Antigravity/02_15_Naimara/src/app/asset-editor.ts:174:11)
+[90m    at listOnTimeout (node:internal/timers:608:17)[39m
+[90m    at processTimers (node:internal/timers:543:7)[39m
+
+[90mstderr[2m | src/app/asset-editor.spec.ts
+[22m[39mError generating barcode NoElementException: No element to render on.
+    at new NoElementException [90m(C:\Users\USUARIO\Desktop\Master_Antigravity\02_15_Naimara\[39mnode_modules\[4mjsbarcode[24m\bin\exceptions\exceptions.js:55:125[90m)[39m
+    at API.render [90m(C:\Users\USUARIO\Desktop\Master_Antigravity\02_15_Naimara\[39mnode_modules\[4mjsbarcode[24m\bin\JsBarcode.js:198:9[90m)[39m
+    at JsBarcode [90m(C:\Users\USUARIO\Desktop\Master_Antigravity\02_15_Naimara\[39mnode_modules\[4mjsbarcode[24m\bin\JsBarcode.js:76:55[90m)[39m
+    at Timeout._onTimeout (C:/Users/USUARIO/Desktop/Master_Antigravity/02_15_Naimara/src/app/asset-editor.ts:174:11)
+[90m    at listOnTimeout (node:internal/timers:608:17)[39m
+[90m    at processTimers (node:internal/timers:543:7)[39m
+
+[90mstderr[2m | src/app/asset-editor.spec.ts
+[22m[39mError generating barcode NoElementException: No element to render on.
+    at new NoElementException [90m(C:\Users\USUARIO\Desktop\Master_Antigravity\02_15_Naimara\[39mnode_modules\[4mjsbarcode[24m\bin\exceptions\exceptions.js:55:125[90m)[39m
+    at API.render [90m(C:\Users\USUARIO\Desktop\Master_Antigravity\02_15_Naimara\[39mnode_modules\[4mjsbarcode[24m\bin\JsBarcode.js:198:9[90m)[39m
+    at JsBarcode [90m(C:\Users\USUARIO\Desktop\Master_Antigravity\02_15_Naimara\[39mnode_modules\[4mjsbarcode[24m\bin\JsBarcode.js:76:55[90m)[39m
+    at Timeout._onTimeout (C:/Users/USUARIO/Desktop/Master_Antigravity/02_15_Naimara/src/app/asset-editor.ts:174:11)
+[90m    at listOnTimeout (node:internal/timers:608:17)[39m
+[90m    at processTimers (node:internal/timers:543:7)[39m
+
+ [32m✓[39m [30m[43m app [49m[39m src/app/asset-editor.spec.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 170[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[32m6 passed[39m[22m[90m (6)[39m
+[2m   Start at [22m 19:56:34
+[2m   Duration [22m 1.76s[2m (transform 343ms, setup 758ms, import 457ms, tests 251ms, environment 1.48s)[22m
+
