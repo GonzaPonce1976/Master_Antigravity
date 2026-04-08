@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generador de Contraseñas Seguras">
+    <title>Generador de Contraseñas</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="./Assets/css/style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="theme-switch-wrapper" title="Cambiar de Tema Oscuro/Claro">
+        <label class="theme-switch" for="theme-toggle">
+            <input type="checkbox" id="theme-toggle">
+            <div class="slider-toggle"></div>
+        </label>
+    </div>
+    <main class="app-container">
+        <header class="header">
+            <h1 class="title">Generador de Contraseñas</h1>
+            <p class="subtitle">Creá contraseñas robustas de forma local</p>
+        </header>
+
+        <section class="password-display">
+            <div class="password-wrapper">
+                <input type="password" id="password-output" class="password-output" readonly placeholder="P4$5W0rD!">
+                <div class="password-actions">
+                    <button type="button" id="toggle-visibility-btn" class="icon-btn" aria-label="Mostrar contraseña" title="Mostrar/Ocultar contraseña">
+                        <!-- Eye close icon -->
+                        <svg id="icon-eye-off" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye-off"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                        <!-- Eye open icon -->
+                        <svg id="icon-eye" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    </button>
+                    <button type="button" id="copy-btn" class="icon-btn" aria-label="Copiar al portapapeles" title="Copiar contraseña">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Feedback visual de copiado -->
+            <div id="copy-feedback" class="feedback-msg"></div>
+        </section>
+
+        <section class="controls">
+            <div class="control-group">
+                <div class="length-header">
+                    <label for="length-slider">Longitud de la contraseña</label>
+                    <span id="length-value" class="length-value">16</span>
+                </div>
+                <input type="range" id="length-slider" min="6" max="64" value="16" class="slider" aria-label="Ajustar longitud">
+            </div>
+
+            <div class="options">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="chk-uppercase" checked>
+                    <span class="checkmark"></span>
+                    Incluir Mayúsculas (A-Z)
+                </label>
+                
+                <label class="checkbox-container">
+                    <input type="checkbox" id="chk-lowercase" checked>
+                    <span class="checkmark"></span>
+                    Incluir Minúsculas (a-z)
+                </label>
+                
+                <label class="checkbox-container">
+                    <input type="checkbox" id="chk-numbers" checked>
+                    <span class="checkmark"></span>
+                    Incluir Números (0-9)
+                </label>
+                
+                <label class="checkbox-container">
+                    <input type="checkbox" id="chk-symbols" checked>
+                    <span class="checkmark"></span>
+                    Incluir Símbolos (@#$%)
+                </label>
+            </div>
+
+            <div class="strength-section">
+                <div class="strength-header">
+                    <span>Fortaleza:</span>
+                    <span id="strength-text">Media</span>
+                </div>
+                <div class="strength-bars" role="meter" aria-label="Fortaleza de contraseña" aria-valuemin="0" aria-valuemax="4">
+                    <div class="bar" id="bar-1"></div>
+                    <div class="bar" id="bar-2"></div>
+                    <div class="bar" id="bar-3"></div>
+                    <div class="bar" id="bar-4"></div>
+                </div>
+            </div>
+
+            <button type="button" id="generate-btn" class="generate-btn">
+                Generar Contraseña
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-refresh-cw"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+            </button>
+            <div id="generate-feedback" class="feedback-msg error"></div>
+        </section>
+    </main>
+
+    <script src="./Assets/js/app.js"></script>
+</body>
+</html>
