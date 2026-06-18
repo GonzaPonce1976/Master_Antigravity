@@ -7,38 +7,43 @@ import {PortfolioState, Project} from '../../services/portfolio-state';
   imports: [],
   template: `
     <div class="animate-fade-in max-w-6xl mx-auto px-6 py-12 md:py-16">
+
       <!-- Header -->
       <header class="mb-12 text-center md:text-left space-y-4">
-        <div class="inline-flex items-center gap-1 text-primary font-mono text-sm uppercase tracking-widest block bg-surface-container-low px-3 py-1 rounded">
-          <span class="material-symbols-outlined text-base">folder_open</span>
-          <span>Portafolio</span>
+        <div class="inline-flex items-center gap-2 font-mono font-semibold" style="background:rgba(255,0,128,0.10); border:1px solid rgba(255,0,128,0.28); color:#ff0080; padding:5px 14px; border-radius:100px; font-size:1.2rem; letter-spacing:0.08em; text-transform:uppercase;">
+          <span class="material-symbols-outlined" style="font-size:15px;">folder_open</span>
+          Portafolio
         </div>
-        <h1 class="font-display text-4xl md:text-6xl font-extrabold text-on-surface tracking-tight">Proyectos</h1>
-        <p class="font-sans text-base md:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
+        <h1 class="font-display font-black" style="font-size:clamp(3.5rem,6vw,6.5rem); letter-spacing:-0.03em; color:#fff; line-height:1.05;">
+          Mis<span class="gradient-text"> Proyectos</span>
+        </h1>
+        <p class="font-sans" style="font-size:1.7rem; line-height:1.65; color:rgba(255,255,255,0.55); max-width:65ch;">
           Una selección de mis trabajos más recientes en desarrollo de software, enfocados en rendimiento, escalabilidad y una experiencia de usuario impecable.
         </p>
       </header>
 
       <!-- Search & Filters -->
-      <div class="bg-surface-container border border-outline-variant/60 p-6 rounded-xl mb-10 flex flex-col md:flex-row gap-4 items-center justify-between">
+      <div style="background:rgba(22,9,42,0.85); border:1px solid rgba(255,255,255,0.08); padding:20px 24px; border-radius:16px; margin-bottom:36px;" class="flex flex-col md:flex-row gap-4 items-center justify-between">
         <div class="relative w-full md:max-w-xs">
-          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-xl">search</span>
-          <input 
-            type="text" 
-            placeholder="Buscar proyectos..." 
+          <span class="material-symbols-outlined" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:rgba(255,255,255,0.35); font-size:20px;">search</span>
+          <input
+            type="text"
+            placeholder="Buscar proyectos..."
             (input)="onSearchChange($event)"
-            class="w-full bg-background border border-outline-variant text-on-surface font-sans text-sm rounded px-4 py-2 pl-10 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+            class="form-input"
+            style="padding-left:40px;"
           />
         </div>
-        
+
         <!-- Filter Pills -->
         <div class="flex flex-wrap gap-2 w-full md:w-auto justify-start md:justify-end">
           @for (tag of techCategories; track tag) {
-            <button 
+            <button
               (click)="selectedTech.set(tag)"
-              [class]="selectedTech() === tag 
-                ? 'bg-primary text-background font-mono text-xs px-3 py-1.5 rounded transition-all cursor-pointer' 
-                : 'bg-surface-variant text-on-surface-variant border border-outline-variant/40 hover:text-primary font-mono text-xs px-3 py-1.5 rounded transition-all cursor-pointer'"
+              [style]="selectedTech() === tag
+                ? 'background:linear-gradient(135deg,#ff0080,#ff6b00); color:#fff; border:1px solid transparent;'
+                : 'background:rgba(255,255,255,0.05); color:rgba(255,255,255,0.55); border:1px solid rgba(255,255,255,0.10);'"
+              style="font-family:'JetBrains Mono',monospace; font-size:1.2rem; font-weight:600; padding:6px 14px; border-radius:8px; transition:all 0.2s; cursor:pointer;"
             >
               {{ tag }}
             </button>
@@ -46,66 +51,68 @@ import {PortfolioState, Project} from '../../services/portfolio-state';
         </div>
       </div>
 
-      <!-- Projects Bento/Grid Layout -->
+      <!-- Empty State -->
       @if (filteredProjects().length === 0) {
-        <div class="text-center py-24 bg-surface-container-low rounded-xl border border-dashed border-outline-variant/60">
-          <span class="material-symbols-outlined text-4xl text-outline mb-2">search_off</span>
-          <p class="text-on-surface-variant font-medium text-base">No se encontraron proyectos con los criterios de búsqueda.</p>
-          <button (click)="resetFilters()" class="text-primary hover:underline font-mono text-sm mt-2">Restablecer filtros</button>
+        <div class="text-center py-24 rounded-2xl" style="background:rgba(22,9,42,0.60); border:1px dashed rgba(255,255,255,0.10);">
+          <span class="material-symbols-outlined" style="font-size:48px; color:rgba(255,255,255,0.25); display:block; margin-bottom:12px;">search_off</span>
+          <p class="font-sans font-medium" style="font-size:1.6rem; color:rgba(255,255,255,0.45);">No se encontraron proyectos con los criterios de búsqueda.</p>
+          <button (click)="resetFilters()" style="margin-top:12px; color:#ff0080; background:none; border:none; font-family:'JetBrains Mono',monospace; font-size:1.3rem; cursor:pointer; text-decoration:underline;">Restablecer filtros</button>
         </div>
       } @else {
+        <!-- Projects Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           @for (project of filteredProjects(); track project.id) {
-            <article class="bg-surface-container-low border border-outline-variant/60 rounded-xl overflow-hidden flex flex-col hover:border-primary transition-all duration-300">
-              <!-- Visual Header with Image/Gradient Glow fallback -->
-              <div class="h-64 overflow-hidden relative bg-surface-container-highest border-b border-outline-variant/30">
-                <img 
-                  [src]="project.imageUrl || 'https://picsum.photos/seed/' + project.title + '/640/360'" 
-                  [alt]="project.title" 
-                  class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+            <article class="card-dark rounded-2xl overflow-hidden flex flex-col" style="position:relative;">
+              <!-- Image header -->
+              <div style="height:220px; overflow:hidden; position:relative; background:rgba(10,3,20,0.80); border-bottom:1px solid rgba(255,255,255,0.07);">
+                <img
+                  [src]="project.imageUrl || 'https://picsum.photos/seed/' + project.title + '/640/360'"
+                  [alt]="project.title"
+                  style="width:100%; height:100%; object-fit:cover; transition:transform 0.7s ease;"
+                  class="project-img"
                   (error)="handleImageError($event, project)"
                   referrerpolicy="no-referrer"
                 />
-                <!-- Glass tag icon -->
-                <div class="absolute top-4 right-4 bg-background/80 backdrop-blur-md px-3 py-1.5 rounded border border-white/10 flex items-center gap-1.5 z-10 text-primary font-mono text-xs">
-                  <span class="material-symbols-outlined text-sm">{{ project.iconName }}</span>
-                  <span>{{ project.title }}</span>
+                <!-- Glass label -->
+                <div style="position:absolute; top:16px; right:16px; background:rgba(18,7,31,0.85); backdrop-filter:blur(10px); border:1px solid rgba(255,0,128,0.30); padding:6px 12px; border-radius:8px; display:flex; align-items:center; gap:6px; z-index:10;">
+                  <span class="material-symbols-outlined" style="color:#ff0080; font-size:16px;">{{ project.iconName }}</span>
+                  <span class="font-mono" style="font-size:1.2rem; color:#fff; font-weight:600;">{{ project.title }}</span>
                 </div>
               </div>
 
-              <!-- Content Body -->
-              <div class="p-6 md:p-8 flex-grow flex flex-col justify-between space-y-6">
+              <!-- Content -->
+              <div class="flex-grow flex flex-col justify-between" style="padding:24px 28px; gap:20px;">
                 <div class="space-y-3">
-                  <h2 class="font-display text-2xl font-extrabold text-on-surface tracking-tight">{{ project.title }}</h2>
-                  <p class="text-on-surface-variant font-sans text-sm leading-relaxed">{{ project.detail }}</p>
+                  <h2 class="font-display font-extrabold" style="font-size:2.2rem; color:#fff; letter-spacing:-0.02em;">{{ project.title }}</h2>
+                  <p class="font-sans" style="font-size:1.45rem; line-height:1.65; color:rgba(255,255,255,0.55);">{{ project.detail }}</p>
                 </div>
 
-                <div class="space-y-6">
+                <div class="space-y-5">
                   <!-- Tech chips -->
                   <div class="flex flex-wrap gap-1.5">
                     @for (tech of project.techs; track tech) {
-                      <span class="bg-surface-variant text-on-surface-variant font-mono text-[1.1rem] px-3 py-0.5 rounded border border-outline-variant/30">
-                        {{ tech }}
-                      </span>
+                      <span style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.10); color:rgba(255,255,255,0.60); font-family:'JetBrains Mono',monospace; font-size:1.15rem; padding:3px 10px; border-radius:6px;">{{ tech }}</span>
                     }
                   </div>
 
                   <!-- CTAs -->
-                  <div class="flex gap-4 pt-2">
-                    <button 
+                  <div class="flex gap-3 pt-1">
+                    <button
                       (click)="triggerDemo(project)"
-                      class="bg-primary text-background font-mono text-xs font-semibold px-4 py-2.5 rounded flex items-center gap-1.5 hover:brightness-110 transition-all cursor-pointer active:scale-95"
+                      class="btn-gradient inline-flex items-center gap-2 px-5 py-2.5 rounded-lg cursor-pointer font-display font-bold"
+                      style="font-size:1.35rem; border:none;"
                     >
-                      <span class="material-symbols-outlined text-base">rocket_launch</span>
-                      Demo
+                      <span class="material-symbols-outlined" style="font-size:17px; position:relative; z-index:1;">rocket_launch</span>
+                      <span style="position:relative; z-index:1;">Demo</span>
                     </button>
-                    <a 
-                      [href]="project.githubUrl" 
-                      target="_blank" 
+                    <a
+                      [href]="project.githubUrl"
+                      target="_blank"
                       rel="noopener noreferrer"
-                      class="border border-outline text-primary font-mono text-xs font-semibold px-4 py-2.5 rounded flex items-center gap-1.5 hover:bg-surface-bright transition-all cursor-pointer active:scale-95"
+                      class="btn-outline-glow inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-display font-bold"
+                      style="font-size:1.35rem; text-decoration:none;"
                     >
-                      <span class="material-symbols-outlined text-base">code</span>
+                      <span class="material-symbols-outlined" style="font-size:17px;">code</span>
                       Código
                     </a>
                   </div>
@@ -116,90 +123,86 @@ import {PortfolioState, Project} from '../../services/portfolio-state';
         </div>
       }
 
-      <!-- Simulation Modal (Demo Trigger) -->
+      <!-- Modal Demo -->
       @if (activeDemoProject()) {
-        <div class="fixed inset-0 bg-background/85 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div class="bg-surface-container border border-outline-variant max-w-md w-full rounded-2xl overflow-hidden shadow-2xl animate-fade-in relative">
-            <button 
+        <div style="position:fixed; inset:0; background:rgba(10,3,20,0.88); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; padding:16px; z-index:50;">
+          <div style="background:rgba(22,9,42,0.98); border:1px solid rgba(255,0,128,0.25); max-width:480px; width:100%; border-radius:20px; overflow:hidden; box-shadow:0 20px 80px rgba(255,0,128,0.20);" class="animate-fade-in">
+            <!-- Top gradient bar -->
+            <div style="height:4px; background:linear-gradient(90deg,#ff0080,#ff6b00,#a855f7);"></div>
+
+            <button
               (click)="activeDemoProject.set(null)"
-              class="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant p-1 rounded-full transition-all"
+              style="position:absolute; top:20px; right:20px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); color:rgba(255,255,255,0.55); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.2s;"
             >
-              <span class="material-symbols-outlined">close</span>
+              <span class="material-symbols-outlined" style="font-size:18px;">close</span>
             </button>
 
-            <!-- Decorative header -->
-            <div class="h-2 bg-gradient-to-r from-primary via-secondary to-tertiary"></div>
-            
-            <div class="p-6 space-y-6">
-              <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
-                  <span class="material-symbols-outlined text-2xl">{{ activeDemoProject()?.iconName }}</span>
+            <div style="padding:28px 28px 24px;">
+              <div class="flex items-center gap-4 mb-6">
+                <div style="width:48px; height:48px; background:rgba(255,0,128,0.12); border:1px solid rgba(255,0,128,0.30); border-radius:12px; display:flex; align-items:center; justify-content:center;">
+                  <span class="material-symbols-outlined" style="color:#ff0080; font-size:24px;">{{ activeDemoProject()?.iconName }}</span>
                 </div>
                 <div>
-                  <h3 class="font-display text-lg font-bold text-on-surface">{{ activeDemoProject()?.title }}</h3>
-                  <p class="text-xs text-secondary font-mono">Demo Interactiva</p>
+                  <h3 class="font-display font-bold" style="font-size:2rem; color:#fff;">{{ activeDemoProject()?.title }}</h3>
+                  <p class="font-mono" style="font-size:1.2rem; color:#ff6b00; font-weight:600;">Demo Interactiva</p>
                 </div>
               </div>
 
-              <!-- Simulated output -->
-              <div class="space-y-3">
-                <p class="text-on-surface-variant text-sm text-[1.4rem]">
-                  Has iniciado el entorno de demostración para <strong>{{ activeDemoProject()?.title }}</strong>. Aquí tienes detalles sobre la simulación activa:
-                </p>
-                <div class="bg-surface-container-lowest border border-outline-variant/60 rounded p-4 font-mono text-xs space-y-1 text-on-surface-variant leading-relaxed">
-                  <div class="text-primary font-semibold">$ initialized --project={{ activeDemoProject()?.title }}</div>
-                  <div>[OK] Carga del módulo completada.</div>
-                  <div>[INFO] Conectando con variables de entorno del sistema...</div>
-                  <div>[LIVE] Puerto de simulación en vivo: <span class="text-secondary font-bold">PORT: 3000</span></div>
-                  <div>[OK] Estado del sistema: ACTIVO y optimizado.</div>
-                </div>
+              <!-- Terminal simulado -->
+              <div style="background:rgba(10,3,20,0.80); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:16px; font-family:'JetBrains Mono',monospace; font-size:1.25rem; line-height:1.75; color:rgba(255,255,255,0.55); margin-bottom:20px;">
+                <div style="color:#ff0080; font-weight:600; margin-bottom:4px;">$ initialized --project={{ activeDemoProject()?.title }}</div>
+                <div>[OK] Carga del módulo completada.</div>
+                <div>[INFO] Conectando con variables de entorno del sistema...</div>
+                <div>[LIVE] Puerto de simulación en vivo: <span style="color:#ff6b00; font-weight:700;">PORT: 3000</span></div>
+                <div>[OK] Estado del sistema: <span style="color:#4ade80;">ACTIVO y optimizado.</span></div>
               </div>
 
-              <div class="flex justify-end pt-2">
-                <button 
+              <div class="flex justify-end">
+                <button
                   (click)="activeDemoProject.set(null)"
-                  class="bg-primary text-background font-mono text-xs font-semibold px-4 py-2 rounded hover:brightness-110 transition-all cursor-pointer"
+                  class="btn-gradient inline-flex items-center gap-2 px-5 py-2.5 rounded-lg cursor-pointer font-display font-bold"
+                  style="font-size:1.35rem; border:none;"
                 >
-                  Cerrar Simulación
+                  <span style="position:relative;z-index:1;">Cerrar Simulación</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
       }
+
     </div>
   `,
   styles: `
     :host {
       display: block;
     }
+    .project-img:hover {
+      transform: scale(1.05);
+    }
   `
 })
 export class Projects {
   protected state = inject(PortfolioState);
 
-  // Filter signals
   searchQuery = signal<string>('');
   selectedTech = signal<string>('TODOS');
   activeDemoProject = signal<Project | null>(null);
 
-  // Extract all unique techs from portfolio list for categories
   get techCategories(): string[] {
     const list = new Set<string>();
     this.state.projects().forEach(p => p.techs.forEach(t => list.add(t)));
     return ['TODOS', ...Array.from(list)];
   }
 
-  // Handle live search
   onSearchChange(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.searchQuery.set(value.trim().toLowerCase());
   }
 
-  // Core project filter logic
   filteredProjects = computed<Project[]>(() => {
     return this.state.projects().filter(p => {
-      const matchSearch = p.title.toLowerCase().includes(this.searchQuery()) || 
+      const matchSearch = p.title.toLowerCase().includes(this.searchQuery()) ||
                           p.description.toLowerCase().includes(this.searchQuery()) ||
                           p.techs.some(t => t.toLowerCase().includes(this.searchQuery()));
       const select = this.selectedTech();
@@ -218,7 +221,6 @@ export class Projects {
   }
 
   handleImageError(event: Event, project: Project) {
-    // If exact image fails to resolve (or offline), fallback to dynamic placeholder with project aesthetic colors
     const target = event.target as HTMLImageElement;
     target.src = `https://picsum.photos/seed/${project.id}/640/360`;
   }
